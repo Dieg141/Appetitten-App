@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Appetitten">
-  <rect width="512" height="512" rx="96" fill="#bd2f21"/>
-  <circle cx="256" cy="256" r="176" fill="#fffaf2"/>
-  <path fill="#1d7b55" d="M256 112c34 0 67 12 93 34l-93 110-93-110c26-22 59-34 93-34Z"/>
-  <path fill="#f6c95f" d="M132 238c8-44 34-82 71-105l53 123-124-18Z"/>
-  <path fill="#bd2f21" d="M380 238c-8-44-34-82-71-105l-53 123 124-18Z"/>
-  <path fill="#221c18" d="M146 286h220v46H146z"/>
-  <path fill="#221c18" d="M174 382 256 174l82 208h-58l-12-35h-25l-12 35h-57Zm79-80h30l-15-47-15 47Z"/>
-</svg>
