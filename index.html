@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#bd2f21" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Appetitten" />
+    <title>Appetitten Arbeidsapp</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <div>
+            <p>Appetitten</p>
+            <span>Pizza & Grill</span>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Hovedmeny">
+          <button class="nav-item active" data-view="dashboard">Oversikt</button>
+          <button class="nav-item" data-view="schedule">Ukeplan</button>
+          <button class="nav-item" data-view="clock">Stempling</button>
+          <button class="nav-item" data-view="chat">Chat</button>
+          <button class="nav-item" data-view="report">Timer</button>
+          <button class="nav-item" data-view="team">Ansatte</button>
+        </nav>
+
+        <section class="current-user">
+          <label for="activeEmployee">Innlogget som</label>
+          <select id="activeEmployee"></select>
+        </section>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Arbeidsplan</p>
+            <h1 id="pageTitle">Oversikt</h1>
+          </div>
+          <div class="today-pill" id="todayPill"></div>
+        </header>
+
+        <section class="view active" id="dashboardView">
+          <div class="dashboard-grid">
+            <article class="panel highlight-panel">
+              <div>
+                <p class="eyebrow">Denne måneden</p>
+                <h2 id="monthHours">0 timer</h2>
+                <p id="monthShiftCount">0 registrerte økter</p>
+              </div>
+              <button class="primary-action" id="quickClockButton">Stemple inn</button>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <h2>Neste vakter</h2>
+                <button class="text-action" data-view-jump="schedule">Åpne</button>
+              </div>
+              <div class="stack-list" id="upcomingShifts"></div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <h2>Siste chat</h2>
+                <button class="text-action" data-view-jump="chat">Åpne</button>
+              </div>
+              <div class="stack-list" id="latestMessages"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="scheduleView">
+          <div class="section-toolbar">
+            <button class="icon-button" id="previousWeek" aria-label="Forrige uke">‹</button>
+            <div>
+              <p class="eyebrow">Ukeplan</p>
+              <h2 id="weekLabel"></h2>
+            </div>
+            <button class="icon-button" id="nextWeek" aria-label="Neste uke">›</button>
+          </div>
+
+          <div class="schedule-board" id="scheduleBoard"></div>
+
+          <form class="panel form-panel" id="shiftForm">
+            <div class="panel-header">
+              <h2>Legg til vakt</h2>
+            </div>
+            <div class="form-grid">
+              <label>
+                Ansatt
+                <select id="shiftEmployee" required></select>
+              </label>
+              <label>
+                Dato
+                <input id="shiftDate" type="date" required />
+              </label>
+              <label>
+                Fra
+                <input id="shiftStart" type="time" value="14:00" required />
+              </label>
+              <label>
+                Til
+                <input id="shiftEnd" type="time" value="22:00" required />
+              </label>
+              <label class="wide">
+                Rolle / notat
+                <input id="shiftRole" type="text" placeholder="Kjøkken, levering, kasse..." />
+              </label>
+            </div>
+            <button class="primary-action" type="submit">Lagre vakt</button>
+          </form>
+        </section>
+
+        <section class="view" id="clockView">
+          <div class="clock-layout">
+            <article class="panel punch-card">
+              <p class="eyebrow">Stempling</p>
+              <h2 id="clockStatus">Ikke på jobb</h2>
+              <p id="clockSubtext">Trykk når du starter eller slutter vakten.</p>
+              <button class="clock-button" id="clockButton">Stemple inn</button>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <h2>Registrerte økter</h2>
+              </div>
+              <div class="stack-list" id="timeEntries"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view" id="chatView">
+          <article class="panel chat-panel">
+            <div class="panel-header">
+              <h2>Ansattchat</h2>
+              <span id="chatCount"></span>
+            </div>
+            <div class="chat-feed" id="chatFeed"></div>
+            <form class="chat-form" id="chatForm">
+              <input id="chatInput" type="text" placeholder="Skriv melding til teamet..." autocomplete="off" required />
+              <button class="primary-action" type="submit">Send</button>
+            </form>
+          </article>
+        </section>
+
+        <section class="view" id="reportView">
+          <div class="report-grid">
+            <article class="panel form-panel">
+              <div class="panel-header">
+                <h2>Månedsrapport</h2>
+              </div>
+              <div class="form-grid compact">
+                <label>
+                  Måned
+                  <input id="reportMonth" type="month" />
+                </label>
+                <label>
+                  Ansatt
+                  <select id="reportEmployee"></select>
+                </label>
+              </div>
+              <button class="primary-action" id="copyReportButton">Kopier rapport</button>
+            </article>
+
+            <article class="panel report-card" id="reportOutput"></article>
+          </div>
+        </section>
+
+        <section class="view" id="teamView">
+          <div class="team-grid">
+            <article class="panel form-panel">
+              <div class="panel-header">
+                <h2>Legg til ansatt</h2>
+              </div>
+              <form id="employeeForm">
+                <div class="form-grid compact">
+                  <label>
+                    Navn
+                    <input id="employeeName" type="text" placeholder="F.eks. Sara" required />
+                  </label>
+                  <label>
+                    Rolle
+                    <input id="employeeRole" type="text" placeholder="Kjøkken, levering..." />
+                  </label>
+                </div>
+                <button class="primary-action" type="submit">Legg til</button>
+              </form>
+            </article>
+
+            <article class="panel">
+              <div class="panel-header">
+                <h2>Team</h2>
+              </div>
+              <div class="team-list" id="teamList"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

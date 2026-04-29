@@ -1,0 +1,19 @@
+{
+  "name": "Appetitten Arbeidsapp",
+  "short_name": "Appetitten",
+  "description": "Vaktplan, stempling, chat og timerapport for Appetitten Pizza & Grill.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fffaf2",
+  "theme_color": "#bd2f21",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
